@@ -1,12 +1,7 @@
 import React from 'react';
 import TodoList from './components/TodoComponents/TodoList.js';
 
-class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-  todoItems = 
-  [
+const data = [
     {
       task: 'Organize Garage',
       id: 1528817077286,
@@ -19,21 +14,25 @@ class App extends React.Component {
     }
   ]
 
+class App extends React.Component {
+  // you will need a place to store your state in this component.
+  // design `App` to be the parent component of your application.
+  // this component is going to take care of state, and any change handlers you need to work with your state
+  
   constructor() {
     super();
-    let date = Date.now;
+    // let date = Date.now;
     this.state = {
-      task: '',
-      id: date,
-      completed: false
+      list: data,
     }
   }
 
   render() {
+    console.log("this.state: ", this.state)
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList />
+        {this.state.list.map(item => <div>{item.task}</div>)}
         
       </div>
     );
