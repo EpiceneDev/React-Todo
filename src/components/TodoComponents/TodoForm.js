@@ -15,6 +15,7 @@ class TodoForm extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.addItem(this.state.newitem);
+        this.setState({ newitem: ""});
     }
 
     render() {
@@ -28,7 +29,7 @@ class TodoForm extends React.Component {
                 />
                 <button type="submit" 
                     onChange={this.handleSubmit}>Add Task</button>
-                <button type="submit">Delete Completed Tasks</button>
+                <button onClick={this.props.filterItems}>Delete Completed Tasks</button>
             </form>
         )
     }
