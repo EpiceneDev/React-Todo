@@ -39,12 +39,18 @@ class App extends React.Component {
         }
       })
     })
+  }
     
+  addItem = task => {
+    this.setState({
+      list: [...this.state.list, {
+        task: task,
+        id: Date.now(),
+        completed: false
+      }]
+    })
   }
 
-  addItem = (item) => {
-    
-  }
 
   render() {
     console.log("this.state: ", this.state)
@@ -54,7 +60,7 @@ class App extends React.Component {
         <TodoList list={this.state.list}
                 toggleCompleted={this.toggleCompleted} 
         />
-        <TodoForm />
+        <TodoForm addItem={this.addItem} />
       </div>
     );
   }
