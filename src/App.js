@@ -32,8 +32,7 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        {this.state.list.map(item => <div>{item.task}</div>)}
-        
+        <TodoList list={this.state.list} />
       </div>
     );
   }

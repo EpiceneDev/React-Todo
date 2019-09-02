@@ -6,14 +6,13 @@ import Todo from "./Todo.js"
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
+        console.log('todolist props: ', props)
     }
-    
+
     render() {
+        console.log('todolist2: ', this.props)
         return (
-        <div className="todo-list">
-            <Todo />
-        </div>
-        // <div>{this.state.message}</div>;
+        <div>{this.props.list.map(item=> <Todo key={item.id} item={item} />)}</div>
         )
     }
 }
