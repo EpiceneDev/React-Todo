@@ -3,13 +3,19 @@
 import React from 'react';
 import Todo from "./Todo.js"
 
-const TodoList = () => {
-    return (
+class TodoList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    render() {
+        return (
         <div className="todo-list">
             <Todo />
         </div>
         // <div>{this.state.message}</div>;
         )
+    }
 }
 
 export default TodoList;
