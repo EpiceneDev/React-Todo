@@ -10,7 +10,7 @@ const data = [
     {
       task: 'Bake Cookies',
       id: 1528817084358,
-      completed: false
+      completed: true
     }
   ]
 
@@ -27,12 +27,28 @@ class App extends React.Component {
     }
   }
 
+  toggleCompleted = (id) => {
+    console.log("toggleCompleted", id)
+    this.setState({ 
+      list: this.state.list.map(item => {
+        if (id === item.id) {
+          return {...item, completed: !item.completed};
+        }else{
+          return item;
+        }
+      })
+    })
+    
+  }
+
   render() {
     console.log("this.state: ", this.state)
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoList list={this.state.list} />
+        <TodoList list={this.state.list}
+                toggleCompleted={this.toggleCompleted} 
+        />
       </div>
     );
   }
