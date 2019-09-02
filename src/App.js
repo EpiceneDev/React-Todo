@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoList from './components/TodoComponents/TodoList.js';
+import TodoForm from './components/TodoComponents/TodoForm.js'
 
 const data = [
     {
@@ -41,6 +42,10 @@ class App extends React.Component {
     
   }
 
+  addItem = (item) => {
+    
+  }
+
   render() {
     console.log("this.state: ", this.state)
     return (
@@ -49,6 +54,7 @@ class App extends React.Component {
         <TodoList list={this.state.list}
                 toggleCompleted={this.toggleCompleted} 
         />
+        <TodoForm />
       </div>
     );
   }
