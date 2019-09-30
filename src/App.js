@@ -34,6 +34,7 @@ class App extends React.Component {
         return !item.completed;
       })
     })
+    localStorage.setItem(this.state)
   }
 
   toggleCompleted = (id) => {
@@ -48,7 +49,6 @@ class App extends React.Component {
       })
     })
   }
-
     
   addItem = task => {
     this.setState({
@@ -58,19 +58,19 @@ class App extends React.Component {
         completed: false
       }]
     })
+    localStorage.setItem(this.state)
   }
-
 
   render() {
     console.log("this.state: ", this.state)
     return (
       <div>
         <h2>Welcome to Sheila's Todo App!</h2>
+        <TodoForm addItem={this.addItem}
+                filterItems={this.filterCompletedItems} />
         <TodoList list={this.state.list}
                 toggleCompleted={this.toggleCompleted} 
         />
-        <TodoForm addItem={this.addItem}
-                filterItems={this.filterCompletedItems} />
       </div>
     );
   }
