@@ -28,13 +28,15 @@ class App extends React.Component {
     }
   }
 
+
   filterCompletedItems = () => {
     this.setState({
       list: this.state.list.filter(item => {
         return !item.completed;
       })
     })
-    localStorage.setItem(this.state)
+    localStorage.setItem([...this.state], this.state)
+    
   }
 
   toggleCompleted = (id) => {
@@ -58,7 +60,7 @@ class App extends React.Component {
         completed: false
       }]
     })
-    localStorage.setItem(this.state)
+   localStorage.setItem([...this.state], this.state.list)
   }
 
   render() {
