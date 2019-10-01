@@ -4,13 +4,13 @@ import TodoForm from './components/TodoComponents/TodoForm.js'
 import './App.scss'
 
 const data = [
+  // {
+  //   task: '',
+  //   id: '',
+  //   completed: false
+  // },
   {
-    task: '',
-    id: '',
-    completed: false
-  },
-  {
-    task: 'Organize Garage',
+    task: 'Create task list',
     id: 1528817077286,
     completed: false
   },
@@ -35,11 +35,11 @@ class App extends React.Component {
   }
 
 
-  filterCompletedItems = () => {
+  filterCompletedItems = () => { 
     this.setState({
       list: this.state.list.filter(item => !item.completed)
     })
-    localStorage.setItem('list', JSON.stringify([...this.state.list, this.state.list]))  
+    //localStorage.setItem('list', JSON.stringify([...this.state.list, this.state.list]))  
     
   }
 
@@ -58,16 +58,37 @@ class App extends React.Component {
   }
     
   addItem = item => {
+    const newItem = {
+      task: item,
+      id: Date.now(),
+      completed: false
+    }
     this.setState({
-      list: [...this.state.list, {
-        task: item,
-        id: Date.now(),
-        completed: false
-      }]
+      list: [...this.state.list, newItem]
     })
-   localStorage.setItem('list', JSON.stringify([...this.state.list, this.state.list]))  
+    localStorage.setItem('list', JSON.stringify([...this.state.list, newItem]))  
   }
 
+  componentDidMount() {
+    this.addLocalStorageToState()
+  }
+
+  addLocalStorageToState = () => {
+    for(let key in this.state) {
+      if(localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key)
+        try{value = JSON.parse(value)
+                this.setState({
+                  [key]: value
+          })}
+        catch(e) {
+          this.setState({
+            [key]: value
+          })
+        }
+      }
+    }
+  }
 
   render() {
     console.log("this.state: ", this.state)
