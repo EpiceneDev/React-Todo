@@ -17,6 +17,10 @@ class TodoForm extends React.Component {
         this.props.addItem(this.state.newitem);
         this.setState({ newitem: ""});
     }
+    
+//   findItem = event => {
+//     this.state.list === [event.target.name]: event.target.value 
+//   }
 
     render() {
         return (
@@ -29,7 +33,14 @@ class TodoForm extends React.Component {
                 />
                 <button type="submit" 
                     onChange={this.handleSubmit}>Add Task</button>
-                <button onClick={this.props.filterItems}>Delete Completed Tasks</button>
+                <button onClick={this.props.filterCompletedItems}>Clear Completed</button>
+                <input type="text"
+                    name="search"
+                    placeholder="Looking for....?"
+                    value={this.state.id}
+                />
+                <button type="submit"
+                    onChange={this.findItem}>Find</button>
             </form>
         )
     }
