@@ -1,6 +1,7 @@
-import React from 'react';
-import TodoList from './components/TodoComponents/TodoList.js';
+import React from 'react'
+import TodoList from './components/TodoComponents/TodoList.js'
 import TodoForm from './components/TodoComponents/TodoForm.js'
+import './App.scss'
 
 const data = [
     {
@@ -60,13 +61,15 @@ class App extends React.Component {
         completed: false
       }]
     })
-   localStorage.setItem([...this.state], this.state.list)
+   localStorage.setItem('list', JSON.stringify([...this.state.list, this.state.list]))  
+   //localStorage.setItem('todos', JSON.stringify([...this.state.todos, newTodo]))
+   //localstorage.get()
   }
 
   render() {
     console.log("this.state: ", this.state)
     return (
-      <div>
+      <div className="app">
         <h2>Welcome to Sheila's Todo App!</h2>
         <TodoForm addItem={this.addItem}
                 filterItems={this.filterCompletedItems} />
