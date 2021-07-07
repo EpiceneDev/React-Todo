@@ -1,18 +1,24 @@
-import React from 'react';
-import TodoList from './components/TodoComponents/TodoList.js';
+import React from 'react'
+import TodoList from './components/TodoComponents/TodoList.js'
 import TodoForm from './components/TodoComponents/TodoForm.js'
+import './App.scss'
 
 const data = [
-    {
-      task: 'Organize Garage',
-      id: 1528817077286,
-      completed: false
-    },
-    {
-      task: 'Bake Cookies',
-      id: 1528817084358,
-      completed: true
-    }
+  // {
+  //   task: '',
+  //   id: '',
+  //   completed: false
+  // },
+  {
+    task: 'Create task list',
+    id: 1528817077286,
+    completed: false
+  },
+  {
+    task: 'Bake Cookies',
+    id: 1528817084358,
+    completed: false
+  }
   ]
 
 class App extends React.Component {
@@ -22,18 +28,19 @@ class App extends React.Component {
   
   constructor() {
     super();
-    // let date = Date.now;
+    
     this.state = {
       list: data,
-    }
+    };
   }
 
-  filterCompletedItems = () => {
+
+  filterCompletedItems = () => { 
     this.setState({
-      list: this.state.list.filter(item => {
-        return !item.completed;
-      })
+      list: this.state.list.filter(item => !item.completed)
     })
+    //localStorage.setItem('list', JSON.stringify([...this.state.list, this.state.list]))  
+    
   }
 
   toggleCompleted = (id) => {
@@ -41,6 +48,7 @@ class App extends React.Component {
     this.setState({ 
       list: this.state.list.map(item => {
         if (id === item.id) {
+          this.setState();
           return {...item, completed: !item.completed};
         }else{
           return item;
@@ -48,29 +56,52 @@ class App extends React.Component {
       })
     })
   }
-
     
-  addItem = task => {
+  addItem = item => {
+    const newItem = {
+      task: item,
+      id: Date.now(),
+      completed: false
+    }
     this.setState({
-      list: [...this.state.list, {
-        task: task,
-        id: Date.now(),
-        completed: false
-      }]
+      list: [...this.state.list, newItem]
     })
+    localStorage.setItem('list', JSON.stringify([...this.state.list, newItem]))  
   }
 
+  componentDidMount() {
+    this.addLocalStorageToState()
+  }
+
+  addLocalStorageToState = () => {
+    for(let key in this.state) {
+      if(localStorage.hasOwnProperty(key)) {
+        let value = localStorage.getItem(key)
+        try{value = JSON.parse(value)
+                this.setState({
+                  [key]: value
+          })}
+        catch(e) {
+          this.setState({
+            [key]: value
+          })
+        }
+      }
+    }
+  }
 
   render() {
     console.log("this.state: ", this.state)
     return (
-      <div>
-        <h2>Welcome to Sheila's Todo App!</h2>
+      <div className="app">
+        <h2>“Obstacles are those frightful things you see when you take your eyes off your goal.” -Henry Ford</h2>
+        <hr/>
         <TodoList list={this.state.list}
                 toggleCompleted={this.toggleCompleted} 
         />
         <TodoForm addItem={this.addItem}
-                filterItems={this.filterCompletedItems} />
+                filterCompletedItems={this.filterCompletedItems} 
+        />
       </div>
     );
   }
